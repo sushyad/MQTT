@@ -106,8 +106,15 @@ boolean MQTT::connect(char *id, char *user, char *pass, char* willTopic, uint8_t
     return false;
 }
 
-uint8_t MQTT::readByte() {
-    while(!_client.available()) {}
+uint8_t MQTT::readByte() {        
+    unsigned long tstart = millis();    
+    while(!_client.available()) {
+        unsigned long tnow = millis();
+        if (tnow-tstart > 20*1000UL) {
+            _client.stop();
+            return 0;
+        }        
+    }
     return _client.read();
 }
 
