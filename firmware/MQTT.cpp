@@ -13,7 +13,7 @@ MQTT::MQTT(char* domain, uint16_t port, void (*callback)(char*,uint8_t*,unsigned
 }
 
 MQTT::MQTT(uint8_t *ip, uint16_t port, void (*callback)(char*,uint8_t*,unsigned int)) {
-   this->callback = callback;
+   this->callback = callback;s
     this->ip = ip;
     this->port = port;
 }
@@ -322,6 +322,8 @@ void MQTT::disconnect() {
     buffer[0] = MQTTDISCONNECT;
     buffer[1] = 0;
     _client.write(buffer,2);
+    _client.flush();
+    delay(200); //very important to wait for the write to finish
     _client.stop();
     lastInActivity = lastOutActivity = millis();
 }
