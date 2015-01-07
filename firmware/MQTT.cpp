@@ -13,7 +13,7 @@ MQTT::MQTT(char* domain, uint16_t port, void (*callback)(char*,uint8_t*,unsigned
 }
 
 MQTT::MQTT(uint8_t *ip, uint16_t port, void (*callback)(char*,uint8_t*,unsigned int)) {
-   this->callback = callback;s
+   this->callback = callback;
     this->ip = ip;
     this->port = port;
 }
